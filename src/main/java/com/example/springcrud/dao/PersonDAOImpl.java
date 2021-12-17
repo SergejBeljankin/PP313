@@ -2,14 +2,15 @@ package com.example.springcrud.dao;
 
 import com.example.springcrud.entities.Person;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
-@Transactional
+
 @Repository
 public class PersonDAOImpl implements PersonDAO {
 
@@ -56,14 +57,13 @@ public class PersonDAOImpl implements PersonDAO {
 
 
     @Override
-    @Transactional
     public List<Person> findPersonByRole(String roleName) {
         return entityManager.createQuery("select person from Person person join fetch Role role on person.id = role.id where role.name = :roleName", Person.class)
                 .setParameter("roleName", roleName).getResultList();
     }
 
-
     @Transactional
+    @Override
     public Person findByUserName(String username){
         return entityManager.createQuery("select person from Person as person join fetch person.roles where person.username =:username", Person.class)
                 .setParameter("username", username).getSingleResult();
