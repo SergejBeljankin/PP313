@@ -43,7 +43,6 @@ public class PersonDAOImpl implements PersonDAO {
         Person person = select(id);
         person.setUsername(personVariable.getUsername());
         person.setPassword(personVariable.getPassword());//
-//        person.setPassword();//
         person.setSurname(personVariable.getSurname());
         person.setName(personVariable.getName());
         person.setRoles(personVariable.getRoles());

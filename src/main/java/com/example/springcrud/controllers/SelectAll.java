@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class SelectAll {
-    private final UserDetailsServiceIpml userDetailsServiceIpml;
     private final PersonServiseInterface personServiseInterface;
     private final RoleServise roleServise;
 
     @Autowired
-    public SelectAll(UserDetailsServiceIpml personServise, RoleServise roleServise,
+    public SelectAll(RoleServise roleServise,
                      PersonServiseInterface personServiseInterface) {
-        this.userDetailsServiceIpml = personServise;
         this.personServiseInterface = personServiseInterface;
         this.roleServise = roleServise;
     }

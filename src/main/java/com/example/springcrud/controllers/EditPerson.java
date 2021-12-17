@@ -16,14 +16,12 @@ import java.util.Set;
 
 @Controller
 public class EditPerson {
-    private final UserDetailsServiceIpml userDetailsServiceIpml;
     private final PersonServiseInterface personServiseInterface;
     private final RoleServise roleServise;
 
     @Autowired
-    public EditPerson(UserDetailsServiceIpml personServise, RoleServise roleServise,
+    public EditPerson(RoleServise roleServise,
                       PersonServiseInterface personServiseInterface) {
-        this.userDetailsServiceIpml = personServise;
         this.personServiseInterface = personServiseInterface;
         this.roleServise = roleServise;
     }

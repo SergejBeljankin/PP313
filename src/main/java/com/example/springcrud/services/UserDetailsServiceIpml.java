@@ -36,36 +36,4 @@ public class UserDetailsServiceIpml implements UserDetailsService {
         return person;
     }
 
-
-
-
- /*
-    private PersonRepository personRepository;
-
-    @Autowired
-    public void setUserRepository(PersonRepository personRepository){
-        this.personRepository = personRepository;
-    }
-
-
-    @Transactional
-    public Person findByUsername(String username){
-        return personRepository.findByUsername(username);
-    }
-
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person person = findByUsername(username);
-        if(person == null){
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
-        }
-        return person;
-    }
-
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-    }
-
-  */
 }

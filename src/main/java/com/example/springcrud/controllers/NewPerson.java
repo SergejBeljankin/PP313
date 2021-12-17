@@ -18,14 +18,12 @@ import java.util.Set;
 
 @Controller
 public class NewPerson {
-    private final UserDetailsServiceIpml userDetailsServiceIpml;
     private final PersonServiseInterface personServiseInterface;
     private final RoleServise roleServise;
 
     @Autowired
-    public NewPerson(UserDetailsServiceIpml personServise, RoleServise roleServise,
+    public NewPerson(RoleServise roleServise,
                      PersonServiseInterface personServiseInterface) {
-        this.userDetailsServiceIpml = personServise;
         this.personServiseInterface = personServiseInterface;
         this.roleServise = roleServise;
     }

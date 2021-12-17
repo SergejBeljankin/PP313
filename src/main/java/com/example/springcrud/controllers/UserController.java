@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    private final UserDetailsServiceIpml userDetailsServiceIpml;
+
     private final PersonServiseInterface personServiseInterface;
-    private final RoleServise roleServise;
+
 
     @Autowired
-    public UserController(UserDetailsServiceIpml personServise, RoleServise roleServise,
-                          PersonServiseInterface personServiseInterface) {
-        this.userDetailsServiceIpml = personServise;
+    public UserController(PersonServiseInterface personServiseInterface) {
         this.personServiseInterface = personServiseInterface;
-        this.roleServise = roleServise;
+
     }
 
     @GetMapping("/{id}")

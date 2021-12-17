@@ -21,13 +21,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {
-//        httpServletResponse.sendRedirect("/admin");
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/select_all");
         } else if (roles.contains("ROLE_USER") || roles.contains("ROLE_MANAGER")) {
          Person person = (Person) authentication.getPrincipal();
-//            ((Person) authentication.getPrincipal()).getId()
             httpServletResponse.sendRedirect("/user/" + person.getId());
         }
 
