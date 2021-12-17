@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String hello(Model model){
         String message = "Hello";
         model.addAttribute("message", message);

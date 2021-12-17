@@ -1,8 +1,8 @@
 package com.example.springcrud.services;
 
+import com.example.springcrud.dao.PersonDAO;
+import com.example.springcrud.entities.Person;
 import com.example.springcrud.entities.Role;
-import com.example.springcrud.entities.User;
-import com.example.springcrud.repostories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,29 +17,55 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
-    private UserRepository userRepository;
+public class UserDetailsServiceIpml implements UserDetailsService {
+    private PersonServiseInterface personServiseInterface;
 
-    @Autowired
-    public void setUserRepository(UserRepository userRepository){
-        this.userRepository = userRepository;
+
+    public UserDetailsServiceIpml(PersonServiseInterface personServiseInterface){
+        this.personServiseInterface = personServiseInterface;
     }
 
-    public User findByUsername(String username){
-        return userRepository.findByUsername(username);
+
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        Person person = personServiseInterface.findByUserName(s);
+        if (person == null) {
+            throw new UsernameNotFoundException(String.format("User %s not found!", s));
+        }
+        return person;
+    }
+
+
+
+
+ /*
+    private PersonRepository personRepository;
+
+    @Autowired
+    public void setUserRepository(PersonRepository personRepository){
+        this.personRepository = personRepository;
+    }
+
+
+    @Transactional
+    public Person findByUsername(String username){
+        return personRepository.findByUsername(username);
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
-        if(user == null){
+        Person person = findByUsername(username);
+        if(person == null){
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+        return person;
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
+
+  */
 }

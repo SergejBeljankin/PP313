@@ -1,7 +1,9 @@
 package com.example.springcrud.controllers;
 
-import com.example.springcrud.entities.User;
-import com.example.springcrud.services.UserService;
+
+import com.example.springcrud.entities.Person;
+import com.example.springcrud.services.PersonServiseInterface;
+import com.example.springcrud.services.UserDetailsServiceIpml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,11 +13,11 @@ import java.security.Principal;
 
 @RestController
 public class MainController {
-    private UserService userService;
+    private PersonServiseInterface personServiseInterface;
 
     @Autowired
-    public void setUserService(UserService userService){
-        this.userService = userService;
+    public void setUserService(PersonServiseInterface personServiseInterface){
+        this.personServiseInterface = personServiseInterface;
     }
 
 
@@ -25,8 +27,8 @@ public class MainController {
 //    }
     @GetMapping("/authenticated")
     public String pageForAuthenticatedUsers(Principal principal){
-        User user = userService.findByUsername(principal.getName());
-        return  "Защищено от доступа <br>рады вас приветствовать: " + user.getUsername() + " " + user.getEmail();
+        Person person = personServiseInterface.findByUserName(principal.getName());
+        return  "Защищено от доступа <br>рады вас приветствовать: " + person.getUsername() + " " + person.getEmail();
     }
 
     @GetMapping("/read_profile")
