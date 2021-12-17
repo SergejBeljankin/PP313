@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface PersonDAO {
     List<Person> getAll();
-    Person select(long id);
+    Person select(Long id);
     void save(Person person);
-    void delete(long id);
-    void update(long id, Person person);
+    void delete(Long id);
+    void update(Long id, Person person);
     List<Person> findPersonByRole(String roleName);
     Person findByUserName(String username);
 }

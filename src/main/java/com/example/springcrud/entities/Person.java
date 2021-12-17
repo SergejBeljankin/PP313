@@ -36,7 +36,7 @@ public class Person implements UserDetails {
     private String email;
 
 
-    @ManyToMany (fetch = FetchType.EAGER)
+    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable (name = "persons_roles",
     joinColumns = @JoinColumn(name = "person_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))

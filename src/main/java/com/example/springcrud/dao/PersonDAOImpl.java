@@ -24,8 +24,12 @@ public class PersonDAOImpl implements PersonDAO {
 
 
     @Override
-    public Person select(long id){
-        return entityManager.find(Person.class, id);
+    public Person select(Long id){
+        return entityManager
+                .createQuery("select person from Person as person join fetch person.roles where person.id =:id", Person.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
     }
 
     @Override
@@ -34,19 +38,19 @@ public class PersonDAOImpl implements PersonDAO {
     }
 
     @Override
-    public void delete(long id){
+    public void delete(Long id){
         entityManager.remove(select(id));
     }
 
     @Override
-    public void update(long id, Person personVariable){
+    public void update(Long id, Person personVariable){
         Person person = select(id);
         person.setUsername(personVariable.getUsername());
         person.setPassword(personVariable.getPassword());//
         person.setSurname(personVariable.getSurname());
         person.setName(personVariable.getName());
         person.setRoles(personVariable.getRoles());
-        save(person);
+        entityManager.merge(person);
     }
 
 
@@ -54,16 +58,14 @@ public class PersonDAOImpl implements PersonDAO {
     @Override
     @Transactional
     public List<Person> findPersonByRole(String roleName) {
-        return entityManager.createQuery("select person from Person person inner join Role role on person.id = role.id where role.name = :roleName", Person.class)
+        return entityManager.createQuery("select person from Person person join fetch Role role on person.id = role.id where role.name = :roleName", Person.class)
                 .setParameter("roleName", roleName).getResultList();
     }
 
-//    @Override
-//    public void setRoles(Set<Role> roleSet) {
-//    }
+
     @Transactional
     public Person findByUserName(String username){
-        return entityManager.createQuery("select person from Person as person where person.username =:username", Person.class)
+        return entityManager.createQuery("select person from Person as person join fetch person.roles where person.username =:username", Person.class)
                 .setParameter("username", username).getSingleResult();
     }
 }
