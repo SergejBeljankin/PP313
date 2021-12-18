@@ -29,7 +29,7 @@ public class NewPerson {
     }
 
     @PostMapping("new_person")
-    public String create(@ModelAttribute("person") Person person
+    public String create(@ModelAttribute("newPerson") Person person
             , @RequestParam("rolesNames") String[] rolesNames){
 
         Set<Role> roleSet = new HashSet<>();
@@ -45,7 +45,7 @@ public class NewPerson {
         return "redirect:/select_all";
     }
     @GetMapping("new_person")
-    public String newPerson(@ModelAttribute("person") Person person){
+    public String newPerson(@ModelAttribute("newPerson") Person person){
         return "new_person";
     }
 }

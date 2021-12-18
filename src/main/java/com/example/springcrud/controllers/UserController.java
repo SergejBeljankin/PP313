@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String userPage(Model model, @PathVariable("id") int id){
+    public String userPage(Model model, @PathVariable("id") Long id){
         Person person = personServiseInterface.select(id);
         model.addAttribute("user", personServiseInterface.select(id));
         return "/user";

@@ -6,29 +6,41 @@
 </head>
 <body>
 <h1>Обновление данных о пользователях</h1>
-<form th:method="PATCH" th:action="@{/edit/{id}(id=${person.getId()})}" th:object="${person}">
-    <label for="username">Измените логин: </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <br/>
-    <label for="password">Измените пароль: </label>
-    <input type="text" th:field="*{password}" id="password"/>
-    <br/>
-    <label for="name">Измените Имя: </label>
-    <input type="text" th:field="*{name}" id="name">
-    <br/>
-    <label for="surname">Измените Фамилию: </label>
-    <input type="text" th:field="*{surname}" id="surname">
-    <br/>
-    <label for="email">Измените e-mail: </label>
-    <input type="text" th:field="*{email}" id="email">
-    <input type="submit" value="Update!"/>
-    <br/>
-    <select id="editRoles" name="rolesNames" multiple size="5" required>
-        <option value="ROLE_ADMIN"   adminSelect>ADMIN</option>
-        <option value="ROLE_USER"  userSelect>USER</option>
-        <option value="ROLE_MANAGER"  managerSelect>MANAGER</option>
-    </select>
+<form th:method="POST" th:action="@{/select_all}" th:object="${person}">
+    <div class="form-group">
+        <label for="name">First Name</label>
+        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter first name">
+    </div>
 
+    <div class="form-group">
+        <label for="surname">Last Name</label>
+        <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder="Enter last name">
+    </div>
+
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Enter age">
+    </div>
+
+    <div class="form-group">
+        <label for="username">Email address</label>
+        <input type="text" th:field="*{username}" class="form-control" id="username" aria-describedby="emailInput" placeholder="Enter email">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+    </div>
+
+    <div class="form-group">
+        <label for="slectRole">Example multiple select</label>
+        <select multiple class="form-control" id="slectRole">
+            <option value="ROLE_ADMIN"   adminSelect>ADMIN</option>
+            <option value="ROLE_USER"   adminSelect>USER</option>
+            <option value="ROLE_MANGER"   adminSelect>MANGER</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add new user</button>
 </form>
 <br>
 <br>

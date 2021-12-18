@@ -24,7 +24,7 @@ public class PersonServiseImpl implements PersonServiseInterface{
     }
 
     @Override
-    public Person select(long id) {
+    public Person select(Long id) {
         return personDAO.select(id);
     }
 
@@ -35,13 +35,13 @@ public class PersonServiseImpl implements PersonServiseInterface{
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(Long id) {
         personDAO.delete(id);
     }
 
 
     @Override
-    public void update(long id, Person person) {
+    public void update(Long id, Person person) {
         person.setPassword(bCryptPasswordEncoder().encode(person.getPassword()));
         personDAO.update(id, person);
     }

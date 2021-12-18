@@ -25,9 +25,9 @@ public class TestBase {
     }
     @PostConstruct
     public void dataInitializer() {
-        Person person1 = new Person("petr","100", "Петр", "Иванов", "p.ivanov@gmail.com");
-        Person person2 = new Person("ivan", "100", "Иван", "Петров", "i.petrov@yandex.ru");
-        Person person3 = new Person("semen", "100", "Семен", "Сидоров", "s.sidorov@bk.ru");
+        Person person1 = new Person("p.ivanov@gmail.com","100", "Петр", "Иванов", 20);
+        Person person2 = new Person("i.petrov@yandex.ru", "100", "Иван", "Петров", 25);
+        Person person3 = new Person("s.sidorov@bk.ru", "100", "Семен", "Сидоров", 27);
 
         Role role1 = new Role("ROLE_ADMIN");
         Role role2 = new Role("ROLE_USER");

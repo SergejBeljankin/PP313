@@ -27,7 +27,7 @@ public class EditPerson {
     }
 
     @PatchMapping("/edit/{id}")
-    public String update(@ModelAttribute("person") Person person, @PathVariable("id") int id,
+    public String update(@ModelAttribute("person") Person person, @PathVariable("id") Long id,
                          @RequestParam("rolesNames") String[] rolesNames) {
         Set<Role> roleSet = new HashSet<>();
         if(rolesNames.length !=0){
@@ -45,7 +45,7 @@ public class EditPerson {
 
 
     @GetMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable("id") int id){
+    public String edit(Model model, @PathVariable("id") Long id){
         model.addAttribute("person", personServiseInterface.select(id));
         return "/edit";
     }

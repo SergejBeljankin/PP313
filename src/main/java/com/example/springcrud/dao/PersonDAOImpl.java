@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public class PersonDAOImpl implements PersonDAO {
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -23,14 +22,12 @@ public class PersonDAOImpl implements PersonDAO {
         return entityManager.createQuery("from Person", Person.class).getResultList();
     }
 
-
     @Override
     public Person select(Long id){
         return entityManager
                 .createQuery("select person from Person as person join fetch person.roles where person.id =:id", Person.class)
                 .setParameter("id", id)
                 .getSingleResult();
-
     }
 
     @Override
@@ -48,13 +45,12 @@ public class PersonDAOImpl implements PersonDAO {
         Person person = select(id);
         person.setUsername(personVariable.getUsername());
         person.setPassword(personVariable.getPassword());//
-        person.setSurname(personVariable.getSurname());
         person.setName(personVariable.getName());
+        person.setSurname(personVariable.getSurname());
+        person.setAge(personVariable.getAge());
         person.setRoles(personVariable.getRoles());
         entityManager.merge(person);
     }
-
-
 
     @Override
     public List<Person> findPersonByRole(String roleName) {
@@ -68,4 +64,5 @@ public class PersonDAOImpl implements PersonDAO {
         return entityManager.createQuery("select person from Person as person join fetch person.roles where person.username =:username", Person.class)
                 .setParameter("username", username).getSingleResult();
     }
+
 }

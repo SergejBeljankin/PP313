@@ -32,9 +32,8 @@ public class Person implements UserDetails {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "email")
-    private String email;
-
+    @Column
+    private int age;
 
     @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable (name = "persons_roles",
@@ -45,20 +44,20 @@ public class Person implements UserDetails {
     public Person() {
     }
 
-    public Person(String username, String password, String name, String surname, String email) {
+    public Person(String username, String password, String name, String surname, int age) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.email = email;
+        this.age = age;
     }
 
-    public Person(String username, String password, String name, String surname, String email, Set<Role> roles) {
+    public Person(String username, String password, String name, String surname, int age, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.email = email;
+        this.age = age;
         this.roles = roles;
     }
     public Long getId() {
@@ -101,12 +100,13 @@ public class Person implements UserDetails {
         this.surname = surname;
     }
 
-    public String getEmail() {
-        return email;
+
+    public int getAge() {
+        return age;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Set<Role> getRoles() {

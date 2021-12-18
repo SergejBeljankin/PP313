@@ -12,4 +12,5 @@ public interface PersonDAO {
     void update(Long id, Person person);
     List<Person> findPersonByRole(String roleName);
     Person findByUserName(String username);
+
 }
