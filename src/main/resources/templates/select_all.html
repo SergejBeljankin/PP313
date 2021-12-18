@@ -91,11 +91,11 @@
                     </table>
                 </div>
                 <div class="tab-pane fade" id="create-user" role="tabpanel" aria-labelledby="new-user">
-                    <div class="row bg-light p-2"> <h4 class="p-2 text-center">Add new user</h4> </div>
+                    <div class="row bg-light p-2"> <h4 class="text-center">Add new user</h4> </div>
                     <div class="row">
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            <form th:method="POST" th:action="@{/new_person}" th:object="${newPerson}">
+                            <form th:method="POST" th:action="@{/select_all}" th:object="${newPerson}">
                                 <div class="form-group">
                                     <label for="name">First Name</label>
                                     <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter first name">
@@ -118,7 +118,7 @@
 
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="text" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
                                 </div>
 
                                 <div class="form-group">
