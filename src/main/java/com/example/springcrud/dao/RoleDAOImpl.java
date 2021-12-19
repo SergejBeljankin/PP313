@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Transactional
 @Repository
@@ -27,4 +28,8 @@ public class RoleDAOImpl implements RoleDAO {
                 .getSingleResult();
     }
 
+    @Override
+    public List<Role> getAllRoles() {
+        return entityManager.createQuery("select role from Role as role", Role.class).getResultList();
+    }
 }

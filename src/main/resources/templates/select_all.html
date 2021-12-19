@@ -73,15 +73,81 @@
                         </thead>
                         <tbody>
                         <tr th:each="person : ${people}">
-                            <td th:text = "${person.getId()}" />
-                            <td th:text = "${person.getName()}" />
-                            <td  th:text = "${person.getSurname()}" />
-                            <td th:text = "${person.getAge()}" />
-                            <td th:text = "${person.getUsername()}" />
-                            <td th:text = "${person.getRolesToString()}" />
+                            <td th:text = "${person.getId()}" >1</td>
+                            <td th:text = "${person.getName()}" >1</td>
+                            <td  th:text = "${person.getSurname()}" />1</td>
+                            <td th:text = "${person.getAge()}" >1</td>
+                            <td th:text = "${person.getUsername()}" >1</td>
+                            <td th:text = "${person.getRolesToString()}" >1</td>
                             <td>
-                                <a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#UserEditModal" th:attrappend="data-target=${person.id}">Edit
+                                </button>
+    <!-- Модальное окно "Edit user" -->
+    <div class="modal fade" id="UserEditModal" th:attrappend="id=${person.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UserEditModalLabel" th:attrappend="id=${person.id}">Edit user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:method="PATCH" th:action="@{/edit/{id}(id=${person.getId()})}" th:object="${person}"> <!-- на update -->
+                        <div class="form-group">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" th:value="*{id}" disabled>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label th:for="name">First Name</label>
+                            <input type="text" class="form-control" th:value="*{name}" name="name" placeholder="Enter first name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="surname">Last Name</label>
+                            <input type="text" th:value="*{surname}" name="surname" class="form-control" placeholder="Enter last name">
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="age">Age</label>
+                            <input th:value="*{age}" name="age" type="number" step="1" min="0" class="form-control" placeholder="Enter age">
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="username">Email address</label>
+                            <input type="text" th:value="*{username}" name="username" class="form-control" aria-describedby="emailInput" placeholder="Enter email">
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="password">Password</label>
+                            <input type="password" th:value="*{password}" name="password" class="form-control" placeholder="Password">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editRoles_edit">Role</label>
+                            <select multiple class="form-control" id="editRoles_edit" name="rolesNames" size="2">
+                                <vid th:each="role : ${roles}">
+                                    <option th:text="${role.getName()}" th:value="${role.getName()}" name="rolesNames"/>
+                                </vid>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- // Модальное окно "Edit user" -->
                             </td>
+
+
                             <td>
                                 <form th:method="DELETE" th:action="@{/select_all/{id}/delete(id=${person.getId()})}">
                                     <button type="submit" class="btn btn-danger mb-2">Delete</button>
@@ -90,6 +156,7 @@
                         </tr>
                     </table>
                 </div>
+                <!--Закладка New user -->
                 <div class="tab-pane fade" id="create-user" role="tabpanel" aria-labelledby="new-user">
                     <div class="row bg-light p-2"> <h4 class="text-center">Add new user</h4> </div>
                     <div class="row">
@@ -103,27 +170,27 @@
 
                                 <div class="form-group">
                                     <label for="surname">Last Name</label>
-                                    <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder="Enter last name">
+                                    <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder="Enter last name" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="age">Age</label>
-                                    <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Enter age">
+                                    <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Enter age" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="username">Email address</label>
-                                    <input type="text" th:field="*{username}" class="form-control" id="username" aria-describedby="emailInput" placeholder="Enter email">
+                                    <input type="text" th:field="*{username}" class="form-control" id="username" aria-describedby="emailInput" placeholder="Enter email" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="editRoles">Example multiple select</label>
-                                    <select multiple class="form-control" id="editRoles" name="rolesNames">
+                                    <select multiple class="form-control" id="editRoles" name="rolesNames" required>
                                         <option value="ROLE_ADMIN"   adminSelect>ADMIN</option>
                                         <option value="ROLE_USER"   adminSelect>USER</option>
                                         <option value="ROLE_MANGER"   adminSelect>MANGER</option>
@@ -136,6 +203,7 @@
                         <div class="col-md-4"></div>
                     </div>
                 </div>
+                <!-- // Закладка New user -->
             </div>
         </div>
 
@@ -144,6 +212,8 @@
 
 
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

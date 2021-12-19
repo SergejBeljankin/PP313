@@ -29,6 +29,7 @@ public class SelectAll {
     @GetMapping("/select_all")
     public String selectAll(@ModelAttribute("newPerson") Person person, Model model){
         model.addAttribute("people", personServiseInterface.getAll());
+        model.addAttribute("roles", roleServise.getAllRoles());
         return "/select_all";
     }
 

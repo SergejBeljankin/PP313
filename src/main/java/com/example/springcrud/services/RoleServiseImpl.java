@@ -5,6 +5,8 @@ import com.example.springcrud.entities.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -24,5 +26,10 @@ public class RoleServiseImpl implements RoleServise{
     @Transactional
     public Role findRoleByString(String roleName) {
         return roleDAO.findRoleByString(roleName);
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return roleDAO.getAllRoles();
     }
 }
