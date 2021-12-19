@@ -149,6 +149,8 @@
 
 
                             <td>
+
+
                                 <form th:method="DELETE" th:action="@{/select_all/{id}/delete(id=${person.getId()})}">
                                     <button type="submit" class="btn btn-danger mb-2">Delete</button>
                                 </form>
@@ -189,12 +191,17 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="editRoles">Example multiple select</label>
-                                    <select multiple class="form-control" id="editRoles" name="rolesNames" required>
-                                        <option value="ROLE_ADMIN"   adminSelect>ADMIN</option>
-                                        <option value="ROLE_USER"   adminSelect>USER</option>
-                                        <option value="ROLE_MANGER"   adminSelect>MANGER</option>
+                                    <label for="editRoles">Role</label>
+                                    <select multiple class="form-control" id="editRoles" name="rolesNames" size="2">
+                                        <vid th:each="role : ${roles}">
+                                            <option th:text="${role.getName()}" th:value="${role.getName()}" name="rolesNames"/>
+                                        </vid>
                                     </select>
+<!--                                    <select multiple class="form-control" id="editRoles" name="rolesNames" required>-->
+<!--                                        <option value="ROLE_ADMIN"   adminSelect>ADMIN</option>-->
+<!--                                        <option value="ROLE_USER"   adminSelect>USER</option>-->
+<!--                                        <option value="ROLE_MANGER"   adminSelect>MANGER</option>-->
+<!--                                    </select>-->
                                 </div>
                                 <button type="submit" class="btn btn-primary" >Add new user</button>
                             </form>
