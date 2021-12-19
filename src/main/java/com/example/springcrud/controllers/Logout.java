@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class Logout {
 
-    @GetMapping("/logoutsucsess")
+    @GetMapping("/login")
     public String logoutSucsess() {
-        return "/logoutsucsess";
+        return "/login";
     }
 
 }
