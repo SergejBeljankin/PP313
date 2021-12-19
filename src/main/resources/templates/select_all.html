@@ -19,7 +19,7 @@
     <div class="row text-white bg-dark" >
         <div class="col-auto mr-auto">
             <h2 class="pt-2">
-                admin@mail.ru <small>with roles: <span th:text = "${personAuthetication.getRolesToString()}"/></small>
+                <span th:text = "${personAuthetication.getUsername()}"/> <small>with roles: <span th:text = "${personAuthetication.getRolesToString()}"/></small>
             </h2>
         </div>
         <div class="col-auto mt-3">
