@@ -56,9 +56,16 @@ public class MyRESTController {
     }
 
     @PutMapping("/persons")
-    public Person updatePerson(@RequestBody Person person, Long id){
+    public Person updatePerson(@RequestBody Person person){
+        Long id = person.getId();
         personServise.update( id, person);
         return person;
+    }
+
+    @DeleteMapping("/persons/{id}")
+    public String deletePerson(@PathVariable int id){
+        personServise.delete((long) id);
+        return "Person with " +  id + " removed";
     }
 
 }
