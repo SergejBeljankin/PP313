@@ -14,13 +14,26 @@
 
 </head>
 <body>
+<!--<script>-->
+<!--    async  function apiSelectAll() {-->
+<!--        let url = '/api/persons/';-->
+<!--        let response = await fetch(url);-->
+<!--        let personjson = await response.json(); // читаем ответ в формате JSON-->
+<!--        console.log(personjson);-->
+<!--        return personjson;-->
+<!--        // personjson = JSON.parse(personjson);-->
 
+<!--    }-->
+
+<!--</script>-->
 <div class="container-fluid">
     <div class="row text-white bg-dark" >
         <div class="col-auto mr-auto">
+
             <h2 class="pt-2">
                 <span th:text = "${personAuthetication.getUsername()}"/> <small>with roles: <span th:text = "${personAuthetication.getRolesToString()}"/></small>
             </h2>
+
         </div>
         <div class="col-auto mt-3">
             <form th:method="POST" th:action="@{/logout}">
@@ -63,7 +76,7 @@
                                     All users
                                 </h4>
                             </div>
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="PersonsTable">
                                 <thead>
                                 <tr>
                                     <th scope="col" >ID</th>
@@ -77,13 +90,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    <!--Тут js который отправит Get запрос и выведет таблицу -->
+<!--                                    <script>-->
+<!--                                        personjson = apiSelectAll();-->
+<!--                                        for (x = 0; x < personjson.length - 1; x++) {-->
+
+<!--                                            document.write('<tr><td>' + person[x].id + '</td><td>' + person[x].name + '</td><td>' + person[x].surname-->
+<!--                                                + '</td><td>' + person[x].age + '</td><td>' + person[x].roles.toString() + '</td><td></td><td></td></tr>');-->
+<!--                                        }-->
+<!--                                    </script>-->
+                                    <!-- // Тут js который отправит Get запрос и выведет таблицу -->
+
                                 <tr th:each="person : ${people}">
-                                    <td th:text = "${person.getId()}" >1</td>
-                                    <td th:text = "${person.getName()}" >1</td>
-                                    <td  th:text = "${person.getSurname()}" />1</td>
-                                    <td th:text = "${person.getAge()}" >1</td>
-                                    <td th:text = "${person.getUsername()}" >1</td>
-                                    <td th:text = "${person.getRolesToString()}" >1</td>
+                                    <td th:text = "${person.getId()}" />
+                                    <td th:text = "${person.getName()}" />
+                                    <td  th:text = "${person.getSurname()}" />
+                                    <td th:text = "${person.getAge()}" />
+                                    <td th:text = "${person.getUsername()}" />
+                                    <td th:text = "${person.getRolesToString()}" />
                                     <td>
                                         <!-- кнопка для модального окна -->
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#UserEditModal" th:attrappend="data-target=${person.id}">Edit
@@ -332,7 +356,7 @@
 </div>
 
 
-
+<script type="text/javascript" th:src="@{/js/myscript.js}" src="../js/myscript.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
