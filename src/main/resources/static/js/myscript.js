@@ -22,7 +22,7 @@ async function getAllUsers() {
                 <td id="roles${persons.id}">${persons.roles.map(r => r.name.replace('ROLE_', '')).join(', ')}</td>
                 <td>
                 <button class="btn btn-info btn-md" type="button"
-                data-toggle="modal" data-target="#UserEditModalLabel"
+                data-toggle="modal" data-target="#UserEditModal"
                 onclick="openModal(${persons.id})">Edit</button></td>
                 <td>
                 <button class="btn btn-danger btn-md" type="button"
