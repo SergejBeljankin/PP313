@@ -22,11 +22,11 @@ async function getAllUsers() {
                 <td id="roles${persons.id}">${persons.roles.map(r => r.name.replace('ROLE_', '')).join(', ')}</td>
                 <td>
                 <button class="btn btn-info btn-md" type="button"
-                data-toggle="modal" data-target="#modalEdit"
+                data-toggle="modal" data-target="#UserEditModalLabel"
                 onclick="openModal(${persons.id})">Edit</button></td>
                 <td>
                 <button class="btn btn-danger btn-md" type="button"
-                data-toggle="modal" data-target="#modalDelete"
+                data-toggle="modal" data-target="#UserShowModal"
                 onclick="openModal(${persons.id})">Delete</button></td>
               </tr>`;
             });
