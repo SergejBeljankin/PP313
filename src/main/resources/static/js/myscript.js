@@ -1,12 +1,5 @@
+// Главная таблица
 async function getAllUsers() {
-    // let url = '/api/persons/';
-    // let response = await fetch(url);
-    //
-    // let personjson = await response.json(); // читаем ответ в формате JSON
-    //
-    // console.log(personjson);
- // ****************************************************************
-
     fetch("/api/persons")
         .then(res => res.json())
         .then(persons => {
@@ -14,24 +7,38 @@ async function getAllUsers() {
             persons.forEach(function (persons) {
                 temp += `
                 <tr>
-                <td id="id${persons.id}">${persons.id}</td>
-                <td id="firstName${persons.id}">${persons.name}</td>
-                <td id="lastName${persons.id}">${persons.surname}</td>
-                <td id="age${persons.id}">${persons.age}</td>
-                <td id="email${persons.id}">${persons.username}</td>
-                <td id="roles${persons.id}">${persons.roles.map(r => r.name.replace('ROLE_', '')).join(', ')}</td>
+                <td>${persons.id}</td>
+                <td>${persons.name}</td>
+                <td>${persons.surname}</td>
+                <td>${persons.age}</td>
+                <td>${persons.username}</td>
+                <td>${persons.roles.map(r => r.name.replace('ROLE_', '')).join(', ')}</td>
                 <td>
                 <button class="btn btn-info btn-md" type="button"
                 data-toggle="modal" data-target="#UserEditModal"
-                onclick="openModal(${persons.id})">Edit</button></td>
+                onclick="openModalEdit(${persons.id})">Edit</button></td>
                 <td>
                 <button class="btn btn-danger btn-md" type="button"
                 data-toggle="modal" data-target="#UserShowModal"
-                onclick="openModal(${persons.id})">Delete</button></td>
+                onclick="openModalDelete(${persons.id})">Delete</button></td>
               </tr>`;
             });
             document.getElementById("PersonsTable").innerHTML = temp;
         });
 }
-
 getAllUsers()
+
+// -------------- UserShowModal
+
+function openModalDelete(id){
+    fetch("/api/persons/" + id)
+        .then(res => {
+        res.json().then(person => {
+            document.getElementById("id_edit").value = person.id;
+            document.getElementById("name_edit").value = person.name;
+            document.getElementById("surname_edit").value = person.surname;
+            document.getElementById("username_edit").value = person.username;
+            document.getElementById("age_edit").value = person.age;
+        })
+    });
+}
