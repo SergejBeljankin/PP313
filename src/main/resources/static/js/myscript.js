@@ -30,15 +30,20 @@ getAllUsers()
 
 // -------------- UserShowModal
 
-function openModalDelete(id){
-    fetch("/api/persons/" + id)
-        .then(res => {
-        res.json().then(person => {
-            document.getElementById("id_edit").value = person.id;
-            document.getElementById("name_edit").value = person.name;
-            document.getElementById("surname_edit").value = person.surname;
-            document.getElementById("username_edit").value = person.username;
-            document.getElementById("age_edit").value = person.age;
-        })
-    });
+async function openModalDelete(id){
+    let url = '/api/persons/1';
+    let response = await fetch(url);
+    let personjson = await response.json();
+
+
+    // fetch("/api/persons/" + id)
+    //     .then(res => {
+    //     res.json().then(per => {
+            document.getElementById("id_edit").value = personjson.id;
+            document.getElementById("name").value = personjson.name;
+            document.getElementById("surname").value = personjson.surname;
+            document.getElementById("username").value = personjson.username;
+            document.getElementById("age").value = personjson.age;
+    //     })
+    // });
 }
