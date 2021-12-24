@@ -28,27 +28,23 @@ function getAllUsers() {
 }
 getAllUsers()
 
+
+// -------------- удаление пользователя
 // -------------- UserShowModal
 
 async function openModalDelete(id){
     let url = '/api/persons/' + id;
     let response = await fetch(url);
     let personjson = await response.json();
+    document.getElementById("id_del").value = personjson.id;
+    document.getElementById("name_del").value = personjson.name;
+    document.getElementById("surname_del").value = personjson.surname;
+    document.getElementById("username_del").value = personjson.username;
+    document.getElementById("password_del").value = personjson.password;
+    document.getElementById("age_del").value = personjson.age;
+    document.getElementById("button-delete").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-danger" onclick="personDelete(${personjson.id})">Delete</button>`;
 
-
-    // fetch("/api/persons/" + id)
-    //     .then(res => {
-    //     res.json().then(per => {
-            document.getElementById("id_del").value = personjson.id;
-            document.getElementById("name_del").value = personjson.name;
-            document.getElementById("surname_del").value = personjson.surname;
-            document.getElementById("username_del").value = personjson.username;
-            document.getElementById("password_del").value = personjson.password;
-            document.getElementById("age_del").value = personjson.age;
-            document.getElementById("button-delete").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-danger" onclick="personDelete(${personjson.id})">Delete</button>`;
-    //     })
-    // });
 }
 
 // openModalEdit
@@ -57,18 +53,12 @@ async function openModalEdit(id){
     let url_edit = '/api/persons/' + id;
     let response_edit = await fetch(url_edit);
     let personjson_edit = await response_edit.json();
-
-    // fetch("/api/persons/" + id)
-    //     .then(res => {
-    //     res.json().then(per => {
     document.getElementById("id_edit").value = personjson_edit.id;
     document.getElementById("name_edit").value = personjson_edit.name;
     document.getElementById("surname_edit").value = personjson_edit.surname;
     document.getElementById("username_edit").value = personjson_edit.username;
     document.getElementById("password_edit").value = personjson_edit.password;
     document.getElementById("age_edit").value = personjson_edit.age;
-    //     })
-    // });
 }
 
 // Удаление пользователя
@@ -82,11 +72,12 @@ async function personDelete(id){
     },
     });
     $("#UserShowModal.close").click();
+
     getAllUsers();
 }
 
 // Добавление нового пользователя
-function addNewPerson(){
+async function addNewPerson(){
 
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
@@ -95,7 +86,7 @@ function addNewPerson(){
     let password = document.getElementById('password').value;
     let roles = RolesArr(Array.from(document.getElementById('rolesNames').selectedOptions)
         .map(role => role.value));
-    fetch("/api/persons", {
+    let newPerson = await fetch("/api/persons", {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -109,9 +100,14 @@ function addNewPerson(){
             'password': password,
             'roles': roles
         })
-    });
-
+    })
+    //     .then(() => {
+    //     document.getElementById("users-table").click();
+    //
+    // })
     $("#create-user.close").click();
+    $("#show-users-table").click();
+    setTimeout(getAllUsers,1000);
     getAllUsers();
 }
 

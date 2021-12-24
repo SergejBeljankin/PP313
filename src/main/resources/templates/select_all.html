@@ -70,8 +70,10 @@
                                     <th scope="col">Delete</th>
                                 </tr>
                                 </thead>
-                            </table>
-                            <table class="table table-striped" id="PersonsTable">
+
+                            <tbody id="PersonsTable">
+
+                            </tbody>
                             </table>
                         </div>
                         <!--Закладка New user -->
@@ -167,17 +169,17 @@
                         <input type="text" class="form-control" id="id_edit" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="name">First Name</label>
+                        <label for="name_edit">First Name</label>
                         <input type="text" class="form-control"  id="name_edit"  placeholder="Enter first name" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="surname">Last Name</label>
+                        <label for="surname_edit">Last Name</label>
                         <input type="text" id="surname_edit" class="form-control"  placeholder="Enter last name" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="age">Age</label>
+                        <label for="age_edit">Age</label>
                         <input id="age_edit" type="number" step="1" min="0" class="form-control" placeholder="Enter age" required>
                     </div>
 
@@ -187,7 +189,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password_edit">Password</label>
                         <input type="password" id="password_edit" class="form-control" placeholder="Password" required>
                     </div>
 
