@@ -45,6 +45,8 @@ async function openModalDelete(id){
             document.getElementById("username_del").value = personjson.username;
             document.getElementById("password_del").value = personjson.password;
             document.getElementById("age_del").value = personjson.age;
+            document.getElementById("button-delete").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-danger" onclick="personDelete(${personjson.id})">Delete</button>`;
     //     })
     // });
 }
@@ -67,4 +69,48 @@ async function openModalEdit(id){
     document.getElementById("age_edit").value = personjson_edit.age;
     //     })
     // });
+}
+
+// Удаление пользователя
+async function personDelete(id){
+    let url = "/api/persons/" + id;
+    await fetch(url,{
+        method: 'DELETE',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+    },
+    });
+    $("#UserShowModal.close").click();
+    getAllUsers();
+}
+
+// Добавление нового пользователя
+async function addNewPerson(){
+
+    let name = document.getElementById('name').value;
+    let surname = document.getElementById('surname').value;
+    let age = document.getElementById('age').value;
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    let roles = Array.from(document.getElementById('rolesNames').selectedOptions)
+        .map(role => role.value);
+    fetch("/api/persons", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+            firstName: name,
+            lastName: surname,
+            age: age,
+            email: username,
+            password: password,
+            roles: roles
+        })
+    });
+
+    $("#create-user.close").click();
+    getAllUsers();
 }

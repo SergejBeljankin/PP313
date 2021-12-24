@@ -80,36 +80,36 @@
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
-                                    <form th:method="POST" th:action="@{/select_all}" th:object="${newPerson}">
+                                    <form id="new_Person" >
                                         <div class="form-group">
                                             <label for="name">First Name</label>
-                                            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter first name">
+                                            <input type="text"  class="form-control" id="name" placeholder="Enter first name">
                                         </div>
                                         <div class="form-group">
                                             <label for="surname">Last Name</label>
-                                            <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder="Enter last name" required>
+                                            <input type="text"  class="form-control" id="surname" placeholder="Enter last name" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="age">Age</label>
-                                            <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Enter age" required>
+                                            <input type="text"  class="form-control" id="age" placeholder="Enter age" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="username">Email address</label>
-                                            <input type="text" th:field="*{username}" class="form-control" id="username" aria-describedby="emailInput" placeholder="Enter email" required>
+                                            <input type="text"  class="form-control" id="username" aria-describedby="emailInput" placeholder="Enter email" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password" required>
+                                            <input type="password"  class="form-control" id="password" placeholder="Password" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="editRoles">Role</label>
-                                            <select multiple class="form-control" id="editRoles" name="rolesNames" size="2">
+                                            <label for="rolesNames">Role</label>
+                                            <select multiple class="form-control" id="rolesNames" name="rolesNames" size="2">
                                                 <vid th:each="role : ${roles}">
                                                     <option th:text="${role.getName()}" th:value="${role.getName()}" name="rolesNames"/>
                                                 </vid>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary" >Add new user</button>
+                                        <button class="btn btn-primary" onclick="addNewPerson()">Add new user</button>
                                     </form>
                                 </div>
                                 <div class="col-md-4"></div>
@@ -157,11 +157,11 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="UserEditModalLabel">Edit user</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="PATCH" action="/edit/{id}"> <!-- на update -->
+                <form> <!-- на update -->
                     <div class="form-group">
                         <label for="id_edit">ID</label>
                         <input type="text" class="form-control" id="id_edit" disabled>
@@ -201,7 +201,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button class="btn btn-primary" onclick="editPerson">Edit</button>
                     </div>
 
                 </form>
@@ -223,7 +223,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:method="DELETE" action="/select_all/{id}/delete"> <!-- на delete -->
+                <form> <!-- на delete -->
                     <div class="form-group">
                         <label for="id_del">ID</label>
                         <input type="text" class="form-control" id="id_del" disabled>
@@ -261,11 +261,10 @@
                             </div>
                         </select>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                    <div class="modal-footer" id="button-delete">
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                        <button class="btn btn-danger" >Delete</button>-->
                     </div>
-
                 </form>
             </div>
 
