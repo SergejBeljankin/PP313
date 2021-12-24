@@ -1,5 +1,5 @@
 // Главная таблица
-async function getAllUsers() {
+function getAllUsers() {
     fetch("/api/persons")
         .then(res => res.json())
         .then(persons => {
@@ -86,15 +86,15 @@ async function personDelete(id){
 }
 
 // Добавление нового пользователя
-async function addNewPerson(){
+function addNewPerson(){
 
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
     let age = document.getElementById('age').value;
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    let roles = Array.from(document.getElementById('rolesNames').selectedOptions)
-        .map(role => role.value);
+    let roles = RolesArr(Array.from(document.getElementById('rolesNames').selectedOptions)
+        .map(role => role.value));
     fetch("/api/persons", {
         method: "POST",
         headers: {
@@ -102,15 +102,35 @@ async function addNewPerson(){
             'Content-Type': 'application/json;charset=UTF-8'
         },
         body: JSON.stringify({
-            firstName: name,
-            lastName: surname,
-            age: age,
-            email: username,
-            password: password,
-            roles: roles
+            'name': name,
+            'surname': surname,
+            'age': age,
+            'username': username,
+            'password': password,
+            'roles': roles
         })
     });
 
     $("#create-user.close").click();
     getAllUsers();
+}
+
+// Создание массива ролей
+
+function RolesArr(arr) {
+    let roles = [];
+
+    if (arr.indexOf("ROLE_ADMIN") >= 0) {
+        roles.push({'id': 1, 'name': 'ROLE_ADMIN'});
+    }
+
+    if (arr.indexOf("ROLE_USER") >= 0) {
+        roles.push({'id': 2, 'name': 'ROLE_USER'});
+    }
+
+    if (arr.indexOf("ROLE_MANAGER") >= 0) {
+        roles.push({'id': 3, 'name': 'ROLE_MANAGER'});
+    }
+
+    return roles;
 }

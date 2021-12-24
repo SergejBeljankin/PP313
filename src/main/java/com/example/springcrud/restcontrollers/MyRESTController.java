@@ -1,6 +1,7 @@
 package com.example.springcrud.restcontrollers;
 
 import com.example.springcrud.entities.Person;
+import com.example.springcrud.entities.Role;
 import com.example.springcrud.exepion_handling.NoSuchPersonException;
 import com.example.springcrud.exepion_handling.PersonIncorrectDate;
 import com.example.springcrud.services.PersonServiseInterface;
@@ -11,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
