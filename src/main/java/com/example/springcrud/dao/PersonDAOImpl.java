@@ -40,6 +40,7 @@ public class PersonDAOImpl implements PersonDAO {
         entityManager.remove(select(id));
     }
 
+    @Transactional
     @Override
     public void update(Long id, Person personVariable){
         Person person = select(id);

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Transactional
@@ -161,5 +162,18 @@ public class Person implements UserDetails {
                 ", age=" + age +
                 ", roles=" + roles.toString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age && id.equals(person.id) && username.equals(person.username) && password.equals(person.password) && name.equals(person.name) && surname.equals(person.surname) && roles.equals(person.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, name, surname, age, roles);
     }
 }

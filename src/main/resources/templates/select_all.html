@@ -194,16 +194,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="editRoles_edit">Role</label>
-                        <select multiple class="form-control" id="editRoles_edit" name="rolesNames" size="2" required>
+                        <label for="editRoles">Role</label>
+                        <select multiple class="form-control" id="editRoles" name="rolesNames" size="2" required>
                             <div th:each="role : ${roles}">
                                 <option th:text="${role.getName()}" th:value="${role.getName()}" name="rolesNames"/>
                             </div>
                         </select>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" onclick="editPerson">Edit</button>
+                    <div class="modal-footer" id="button-edit">
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                        <button class="btn btn-primary" onclick="editPerson()">Edit</button>-->
                     </div>
 
                 </form>
@@ -259,7 +259,7 @@
                         <label for="editRoles_edit">Role</label>
                         <select multiple class="form-control" size="2" disabled>
                             <div th:each="role : ${roles}">
-                                <option th:text="${role.getName()}" th:value="${role.getName()}" name="rolesNames"/>
+                                <option th:text="${role.getName()}" th:value="${role.getName()}" id="editRoles_edit"/>
                             </div>
                         </select>
                     </div>
