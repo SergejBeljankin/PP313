@@ -1,43 +1,29 @@
 // Главная таблица
 async function getAllUsers() {
-    /*
+
     let url = "/api/persons";
     let response = await fetch(url);
     let rJson = await response.json();
-    let temp = '';
-    rJson
-
-
-     */
-
-
-    await fetch("/api/persons")
-        .then(res => res.json())
-        .then(persons => {
-            let temp = '';
-            persons.forEach(function (persons) {
-                temp += `
-                <tr>
-                <td>${persons.id}</td>
-                <td>${persons.name}</td>
-                <td>${persons.surname}</td>
-                <td>${persons.age}</td>
-                <td>${persons.username}</td>
-                <td>${persons.roles.map(r => r.name.replace('ROLE_', '')).join(', ')}</td>
+    let hmtlblok = '';
+    for (i = 0; i < rJson.length; i++){
+        hmtlblok += `<tr>
+                <td>${rJson[i].id}</td>
+                <td>${rJson[i].name}</td>
+                <td>${rJson[i].surname}</td>
+                <td>${rJson[i].age}</td>
+                <td>${rJson[i].username}</td>
+                <td>${rJson[i].roles.map(r => r.name.replace('ROLE_', '')).join(', ')}</td>
                 <td>
                 <button class="btn btn-info btn-md" type="button"
                 data-toggle="modal" data-target="#UserEditModal"
-                onclick="openModalEdit(${persons.id})">Edit</button></td>
+                onclick="openModalEdit(${rJson[i].id})">Edit</button></td>
                 <td>
                 <button class="btn btn-danger btn-md" type="button"
                 data-toggle="modal" data-target="#UserShowModal"
-                onclick="openModalDelete(${persons.id})">Delete</button></td>
-              </tr>`;
-            });
-            document.getElementById("PersonsTable").innerHTML = temp;
-        });
-
-
+                onclick="openModalDelete(${rJson[i].id})">Delete</button></td>
+              </tr>`
+    }
+    document.getElementById("PersonsTable").innerHTML = hmtlblok;
 }
 getAllUsers()
 
@@ -76,9 +62,6 @@ async function openModalEdit(id){
     document.getElementById("button-edit").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button class="btn btn-primary" onclick="editPerson()">Edit</button>`;
 
-//
-
-
 }
 
 // Удаление пользователя
@@ -106,18 +89,6 @@ async function addNewPerson(){
     let password = document.getElementById('password').value;
     let roles = RolesArr(Array.from(document.getElementById('rolesNames').selectedOptions)
         .map(role => role.value));
-    // let roles = [];
-    // if (rolesArr.indexOf("ROLE_ADMIN") >= 0) {
-    //     roles.push({'id': 1, 'name': 'ROLE_ADMIN'});
-    // }
-    //
-    // if (rolesArr.indexOf("ROLE_USER") >= 0) {
-    //     roles.push({'id': 2, 'name': 'ROLE_USER'});
-    // }
-    //
-    // if (rolesArr.indexOf("ROLE_MANAGER") >= 0) {
-    //     roles.push({'id': 3, 'name': 'ROLE_MANAGER'});
-    // }
 
     let newPerson = fetch("/api/persons", {
         method: "POST",
@@ -136,18 +107,15 @@ async function addNewPerson(){
     });
     alert(newPerson);
     console.log(newPerson);
-    //     .then(() => {
-    //     document.getElementById("users-table").click();
-    //
-    // })
+
     $("#create-user.close").click();
     $("#show-users-table").click();
-    // setTimeout(getAllUsers,4000);
+
     getAllUsers();
 }
 
 // Редактирование пользователя
-async function editPerson(){
+function editPerson(){
 
         let id_edit = document.getElementById("id_edit").value;
         let name = document.getElementById('name_edit').value;
@@ -157,15 +125,8 @@ async function editPerson(){
         let password = document.getElementById('password_edit').value;
         let roles = RolesArr(Array.from(document.getElementById('editRoles').selectedOptions)
             .map(role => role.value));
-
-
-    await fetch("/api/persons", {
-        method: "PUT",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: JSON.stringify({
+        
+        let person = {
             'id' : id_edit,
             'name': name,
             'surname': surname,
@@ -173,17 +134,26 @@ async function editPerson(){
             'username': username,
             'password': password,
             'roles': roles
-        })
+        }
+
+        console.log(person);
+
+    let person_edit = fetch("/api/persons", {
+        method: "PUT",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(person)
     });
-
+    console.log(person_edit);
     $("#UserEditModal.close").click();
-    // setTimeout(getAllUsers,4000);
-    refreshTable();
-}
-
-function refreshTable(){
     getAllUsers();
 }
+
+// function refreshTable(){
+//     getAllUsers();
+// }
 
 // Создание массива ролей
 
