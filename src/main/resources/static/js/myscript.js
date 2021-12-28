@@ -72,9 +72,9 @@ function personDelete(id){
     fetch(url,{
         method: 'DELETE',
         headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-    },
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
     });
     $("#UserShowModal.close").click();
 
@@ -119,26 +119,26 @@ async function addNewPerson(){
 // Редактирование пользователя
 async function editPerson(){
 
-        let id_edit =  document.getElementById("id_edit").value;
-        let name =  document.getElementById('name_edit').value;
-        let surname =  document.getElementById('surname_edit').value;
-        let age =  document.getElementById('age_edit').value;
-        let username =  document.getElementById('username_edit').value;
-        let password =  document.getElementById('password_edit').value;
-        let roles = RolesArr(Array.from(document.getElementById('editRoles').selectedOptions)
-            .map(role => role.value));
+    let id_edit =  document.getElementById("id_edit").value;
+    let name =  document.getElementById('name_edit').value;
+    let surname =  document.getElementById('surname_edit').value;
+    let age =  document.getElementById('age_edit').value;
+    let username =  document.getElementById('username_edit').value;
+    let password =  document.getElementById('password_edit').value;
+    let roles = RolesArr(Array.from(document.getElementById('editRoles').selectedOptions)
+        .map(role => role.value));
 
-        let person = {
-            'id' : id_edit,
-            'name': name,
-            'surname': surname,
-            'age': age,
-            'username': username,
-            'password': password,
-            'roles': roles
-        }
+    let person = {
+        'id' : id_edit,
+        'name': name,
+        'surname': surname,
+        'age': age,
+        'username': username,
+        'password': password,
+        'roles': roles
+    }
 
-        console.log(person);
+
 
     let person_edit = await fetch("/api/persons", {
         method: "PUT",
@@ -148,13 +148,37 @@ async function editPerson(){
         },
         body: JSON.stringify(person)
     });
-    person_edit_result = await person_edit.json();
+    let person_edit_result = await person_edit.json();
+
+    let param = '#' + person_edit_result.id;
+    // $(param).remove();
+
+    console.log(person_edit_result);
+
+    let html = `<td>${person_edit_result.id}</td>
+    <td>${person_edit_result.name}</td>
+    <td>${person_edit_result.surname}</td>
+    <td>${person_edit_result.age}</td>
+    <td>${person_edit_result.username}</td>
+    <td>${person_edit_result.roles.map(r => r.name.replace('ROLE_', '')).join(', ')}</td>
+    <td>
+        <button class="btn btn-info btn-md" type="button" data-toggle="modal" data-target="#UserEditModal" onclick="openModalEdit(${person_edit_result.id})">Edit</button>
+    </td>
+    <td>
+        <button class="btn btn-danger btn-md" type="button"  data-toggle="modal" data-target="#UserShowModal" onclick="openModalDelete(${person_edit_result.id})">Delete</button>
+    </td>`;
 
 
+    // $("#UserEditModal.close").click();
+    // $(param).replaceWith(html);
+    //
+
+    $('#PersonsTable>tr').remove();
+    // getAllUsers();
 
 
-    $("#UserEditModal.close").click();
-    editRow(person_edit_result.id);
+    //
+    // editRow(person_edit_result.id);
 }
 
 async function editRow(id){
@@ -179,7 +203,10 @@ async function editRow(id){
     console.log(html);
     console.log(`${personjson_edit.id}`);
 
-    document.getElementById(`${personjson_edit.id}`).innerHTML = html;
+    // document.getElementById(`${personjson_edit.id}`).innerHTML = html;
+
+
+    $('#' + `${personjson_edit.id}`+'>tr').replaceWith(html);
 }
 
 // Создание массива ролей
@@ -201,4 +228,3 @@ function RolesArr(arr) {
 
     return roles;
 }
-
