@@ -115,7 +115,7 @@ async function addNewPerson(){
 }
 
 // Редактирование пользователя
-function editPerson(){
+async function editPerson(){
 
         let id_edit = document.getElementById("id_edit").value;
         let name = document.getElementById('name_edit').value;
@@ -138,7 +138,7 @@ function editPerson(){
 
         console.log(person);
 
-    let person_edit = fetch("/api/persons", {
+    let person_edit = await fetch("/api/persons", {
         method: "PUT",
         headers: {
             'Accept': 'application/json',
