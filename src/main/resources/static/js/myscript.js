@@ -179,6 +179,14 @@ async function addNewPerson(event){
 
 }
 
+// заполнение таблицы вошедшего пользователя
+
+async function PersonTable(){
+    let url = "/api/persons/info";
+    let response = await fetch(url);
+    let pJson = await response.json();
+
+}
 
 
 // Создание массива ролей
