@@ -16,11 +16,11 @@ async function getAllUsers() {
                 <td>
                 <button class="btn btn-info btn-md" type="button"
                 data-toggle="modal" data-target="#UserEditModal"
-                onclick="openModalEdit(${rJson[i].id})">Edit</button></td>
+                onclick="openModalEdit(${rJson[i].id});">Edit</button></td>
                 <td>
                 <button class="btn btn-danger btn-md" type="button"
                 data-toggle="modal" data-target="#UserShowModal"
-                onclick="openModalDelete(${rJson[i].id})">Delete</button></td>
+                onclick="openModalDelete(${rJson[i].id});">Delete</button></td>
               </tr>`
     }
     document.getElementById("PersonsTable").innerHTML = hmtlblok;
@@ -43,17 +43,19 @@ async function openModalDelete(id){
     document.getElementById("password_del").value = personjson.password;
     document.getElementById("age_del").value = personjson.age;
     document.getElementById("button-delete").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button class="btn btn-danger" onclick="personDelete(${personjson.id})">Delete</button>`;
+                <button class="btn btn-danger" onclick="personDelete(${personjson.id});">Delete</button>`;
 
 }
 
 // openModalEdit
 // UserEditModal
 async function openModalEdit(id){
+    console.log("Открытие модального окна");
     let url_edit = '/api/persons/' + id;
     let response_edit = await fetch(url_edit);
     let personjson_edit = await response_edit.json();
-
+    console.log(personjson_edit);
+    setTimeout(10000);
     document.getElementById("id_edit").value = personjson_edit.id;
     document.getElementById("name_edit").value = personjson_edit.name;
     document.getElementById("surname_edit").value = personjson_edit.surname;
@@ -62,7 +64,7 @@ async function openModalEdit(id){
     document.getElementById("age_edit").value = personjson_edit.age;
 
     document.getElementById("button-edit").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" onclick="editPerson()">Edit</button>`;
+                        <button class="btn btn-primary" onclick="editPerson();">Edit</button>`;
 
 }
 
@@ -83,7 +85,8 @@ function personDelete(id){
 
 // Добавление нового пользователя
 async function addNewPerson(){
-
+    console.log("открыта форма добавления нового ");
+    setTimeout(4000);
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
     let age = document.getElementById('age').value;
@@ -109,7 +112,8 @@ async function addNewPerson(){
     });
     alert(newPerson);
     console.log(newPerson);
-
+    console.log("сейчас перейдем на страницу админа");
+setTimeout(10000);
     $("#create-user.close").click();
     $("#show-users-table").click();
     getAllUsers();
@@ -118,7 +122,9 @@ async function addNewPerson(){
 
 // Редактирование пользователя
 async function editPerson(){
-
+    setTimeout(10000);
+    console.log("Нажата кнопка эдит");
+    setTimeout(10000);
     let id_edit =  document.getElementById("id_edit").value;
     let name =  document.getElementById('name_edit').value;
     let surname =  document.getElementById('surname_edit').value;
@@ -128,6 +134,7 @@ async function editPerson(){
     let roles = RolesArr(Array.from(document.getElementById('editRoles').selectedOptions)
         .map(role => role.value));
 
+    setTimeout(10000);
     let person = {
         'id' : id_edit,
         'name': name,
@@ -136,47 +143,65 @@ async function editPerson(){
         'username': username,
         'password': password,
         'roles': roles
-    }
+    };
 
 
-
-    let person_edit = await fetch("/api/persons", {
+    console.log("собраны данные");
+    setTimeout(10000);
+    console.log(person);
+    const person_edit = fetch("/api/persons", {
         method: "PUT",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: JSON.stringify(person)
+        body: JSON.stringify({
+            'id' : id_edit,
+            'name': name,
+            'surname': surname,
+            'age': age,
+            'username': username,
+            'password': password,
+            'roles': roles
+        })
     });
-    let person_edit_result = await person_edit.json();
-
-    let param = '#' + person_edit_result.id;
-    // $(param).remove();
-
+    console.log("запрос отправлен");
+    setTimeout(1000);
+    let person_edit_result = person_edit.json();
+    setTimeout(1000);
     console.log(person_edit_result);
+    console.log(person_edit_result.id);
+    let param = '#' + person_edit_result.id;
+    $(param).remove();
 
-    let html = `<td>${person_edit_result.id}</td>
-    <td>${person_edit_result.name}</td>
-    <td>${person_edit_result.surname}</td>
-    <td>${person_edit_result.age}</td>
-    <td>${person_edit_result.username}</td>
-    <td>${person_edit_result.roles.map(r => r.name.replace('ROLE_', '')).join(', ')}</td>
-    <td>
-        <button class="btn btn-info btn-md" type="button" data-toggle="modal" data-target="#UserEditModal" onclick="openModalEdit(${person_edit_result.id})">Edit</button>
-    </td>
-    <td>
-        <button class="btn btn-danger btn-md" type="button"  data-toggle="modal" data-target="#UserShowModal" onclick="openModalDelete(${person_edit_result.id})">Delete</button>
-    </td>`;
 
+    /*
+    let html ='';
+    html += '<tr id="'+ person_edit_result.id +'">' +
+    '<td>' + person_edit_result.id + '</td>\n' +
+    '<td>' + person_edit_result.name + '</td>\n' +
+    '<td>' + person_edit_result.surname + '</td>\n' +
+    '<td>' + person_edit_result.age + '</td>\n' +
+    '<td>' + person_edit_result.username + '</td>\n' +
+    '<td>' + person_edit_result.roles.map(r => r.name.replace('ROLE_', '')).join(', ') + '</td>\n' +
+    '<td>' + '<button class="btn btn-info btn-md" type="button" data-toggle="modal" data-target="#UserEditModal" onclick="openModalEdit('
+         + person_edit_result.id + ');">Edit</button></td>\n' +
+
+    '<td>' + '<button class="btn btn-danger btn-md" type="button"  data-toggle="modal" data-target="#UserShowModal" onclick="openModalDelete(' +
+        person_edit_result.id + ');">Delete</button></td>\n' + '</tr>';
+
+    console.log(html);
 
     // $("#UserEditModal.close").click();
     // $(param).replaceWith(html);
     //
 
-    $('#PersonsTable>tr').remove();
+    $('#PersonsTable').append(html);
     // getAllUsers();
 
 
+
+     */
     //
     // editRow(person_edit_result.id);
 }

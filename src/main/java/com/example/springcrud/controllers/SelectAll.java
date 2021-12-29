@@ -35,18 +35,18 @@ public class SelectAll {
     public String selectAll(@ModelAttribute("newPerson") Person person, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Person personAuthetication = (Person) auth.getPrincipal();
-        model.addAttribute("people", personServiseInterface.getAll());
+//        model.addAttribute("people", personServiseInterface.getAll());
         model.addAttribute("roles", roleServise.getAllRoles());
         model.addAttribute("personAuthetication", personAuthetication);
         return "/select_all";
     }
-
+/*
     @DeleteMapping("/select_all/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         personServiseInterface.delete(id);
         return "redirect:/select_all";
     }
-
+/*
     @PostMapping("/select_all")
     public String create(@ModelAttribute("newPerson") Person person
             , @RequestParam("rolesNames") String[] rolesNames){
@@ -64,7 +64,9 @@ public class SelectAll {
         return "redirect:/select_all";
     }
 
+ */
 
+/*
     @PatchMapping("/edit/{id}")
     public String update(@ModelAttribute("person") Person person, @PathVariable("id") Long id,
                          @RequestParam("rolesNames") String[] rolesNames) {
@@ -88,4 +90,6 @@ public class SelectAll {
         model.addAttribute("person", personServiseInterface.select(id));
         return "/edit";
     }
+
+ */
 }

@@ -62,7 +62,7 @@ public class MyRESTController {
     public Person updatePerson(@RequestBody Person person){
         Long id = person.getId();
         personServise.update( id, person);
-        return person;
+        return personServise.select(id);
     }
 
     @DeleteMapping("/persons/{id}")
