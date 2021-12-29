@@ -64,7 +64,7 @@ async function openModalEdit(id){
     document.getElementById("age_edit").value = personjson_edit.age;
 
     document.getElementById("button-edit").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" onclick="editPerson();">Edit</button>`;
+                        <button class="btn btn-primary" onclick="editPerson2();">Edit</button>`;
 
 }
 
@@ -120,6 +120,52 @@ setTimeout(10000);
 
 }
 
+
+// Редактирование пользователя 2
+async function editPerson2(){
+    let person = {
+        id :  document.getElementById("id_edit").value,
+        name :  document.getElementById('name_edit').value,
+        surname :  document.getElementById('surname_edit').value,
+        age :  document.getElementById('age_edit').value,
+        username :  document.getElementById('username_edit').value,
+        password :  document.getElementById('password_edit').value,
+        roles : RolesArr(Array.from(document.getElementById('editRoles').selectedOptions)
+            .map(role => role.value))
+    }
+
+
+    fetch("/api/persons", {
+
+        method: "PUT",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(person)
+    })
+        .then(response => response.json())
+        .then(json => {
+            console.log('PUT: Получен ответ ' + json); //тут в консоле покажет, что принят объект
+            let person_edit_result = json;
+            let param = '#' + person_edit_result.id;
+            $(param).remove();
+        });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Редактирование пользователя
 async function editPerson(){
     setTimeout(10000);
@@ -173,6 +219,15 @@ async function editPerson(){
     console.log(person_edit_result.id);
     let param = '#' + person_edit_result.id;
     $(param).remove();
+
+
+
+
+
+
+
+
+
 
 
     /*
