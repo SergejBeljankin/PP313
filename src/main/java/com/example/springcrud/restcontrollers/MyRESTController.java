@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,5 +71,8 @@ public class MyRESTController {
         personServise.delete((long) id);
         return "Person with " +  id + " removed";
     }
-
+    @PostMapping("/persons/info")
+    public Person personInfo(@RequestBody Principal principal){
+        return personServise.findByUserName(principal.getName());
+    }
 }
