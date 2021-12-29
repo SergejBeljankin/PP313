@@ -111,7 +111,7 @@
                                                 </vid>
                                             </select>
                                         </div>
-                                        <button class="btn btn-primary" onclick="addNewPerson()">Add new user</button>
+                                        <button class="btn btn-primary" type="submit">Add new user</button>
                                     </form>
                                 </div>
                                 <div class="col-md-4"></div>
@@ -163,7 +163,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form> <!-- на update -->
+                <form id="UserEditModalForm"> <!-- на update -->
                     <div class="form-group">
                         <label for="id_edit">ID</label>
                         <input type="text" class="form-control" id="id_edit" disabled>
@@ -225,7 +225,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form> <!-- на delete -->
+                <form id="UserDelete"> <!-- на delete -->
                     <div class="form-group">
                         <label for="id_del">ID</label>
                         <input type="text" class="form-control" id="id_del" disabled>

@@ -42,8 +42,8 @@ async function openModalDelete(id){
     document.getElementById("username_del").value = personjson.username;
     document.getElementById("password_del").value = personjson.password;
     document.getElementById("age_del").value = personjson.age;
-    document.getElementById("button-delete").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button class="btn btn-danger" onclick="personDelete(${personjson.id});">Delete</button>`;
+    document.getElementById("button-delete").innerHTML = `<button type="button" class="btn btn-secondary" id="close_del" data-dismiss="modal">Close</button>
+                <button class="btn btn-danger" type="submit">Delete</button>`;
 
 }
 
@@ -55,7 +55,6 @@ async function openModalEdit(id){
     let response_edit = await fetch(url_edit);
     let personjson_edit = await response_edit.json();
     console.log(personjson_edit);
-    setTimeout(10000);
     document.getElementById("id_edit").value = personjson_edit.id;
     document.getElementById("name_edit").value = personjson_edit.name;
     document.getElementById("surname_edit").value = personjson_edit.surname;
@@ -63,14 +62,20 @@ async function openModalEdit(id){
     document.getElementById("password_edit").value = personjson_edit.password;
     document.getElementById("age_edit").value = personjson_edit.age;
 
-    document.getElementById("button-edit").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" onclick="editPerson2();">Edit</button>`;
+    // document.getElementById("button-edit").innerHTML = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    //                     <button class="btn btn-primary" id="edit" onclick="editPerson2();">Edit</button>`;
+    document.getElementById("button-edit").innerHTML = `<button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" id="edit" type="submit">Edit</button>`;
 
 }
 
 // Удаление пользователя
-function personDelete(id){
-    let url = "/api/persons/" + id;
+document.getElementById("UserDelete")
+    .addEventListener('submit', personDelete);
+function personDelete(event){
+    event.preventDefault();
+    let id_del = document.getElementById('id_del').value;
+    let url = "/api/persons/" + id_del;
     fetch(url,{
         method: 'DELETE',
         headers: {
@@ -78,15 +83,16 @@ function personDelete(id){
             'Content-Type': 'application/json;charset=UTF-8'
         },
     });
-    $("#UserShowModal.close").click();
-
-    getAllUsers();
+    $("#close_del").click();
+    $('#' + id_del).remove();
 }
 
 // Добавление нового пользователя
-async function addNewPerson(){
-    console.log("открыта форма добавления нового ");
-    setTimeout(4000);
+document.getElementById("new_Person")
+    .addEventListener('submit', addNewPerson);
+async function addNewPerson(event){
+    event.preventDefault();
+    //new_Person
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
     let age = document.getElementById('age').value;
@@ -112,17 +118,18 @@ async function addNewPerson(){
     });
     alert(newPerson);
     console.log(newPerson);
-    console.log("сейчас перейдем на страницу админа");
-setTimeout(10000);
-    $("#create-user.close").click();
-    $("#show-users-table").click();
+    $("#users-table").click();
     getAllUsers();
 
 }
 
 
 // Редактирование пользователя 2
-async function editPerson2(){
+document.getElementById("UserEditModalForm")
+    .addEventListener('submit', editPerson2);
+
+async function editPerson2(event){
+    event.preventDefault();
     let person = {
         id :  document.getElementById("id_edit").value,
         name :  document.getElementById('name_edit').value,
@@ -135,7 +142,7 @@ async function editPerson2(){
     }
 
 
-    fetch("/api/persons", {
+    await fetch("/api/persons", {
 
         method: "PUT",
         headers: {
@@ -146,11 +153,34 @@ async function editPerson2(){
     })
         .then(response => response.json())
         .then(json => {
-            console.log('PUT: Получен ответ ' + json); //тут в консоле покажет, что принят объект
-            let person_edit_result = json;
-            let param = '#' + person_edit_result.id;
+            console.log('PUT: Получен ответ '); //тут в консоле покажет, что принят объект
+            console.log(json);
+
+            let param = '#' + json.id;
+            console.log(param);
             $(param).remove();
+
+            let html ='';
+            html += '<tr id="'+ json.id +'">' +
+                '<td>' + json.id + '</td>\n' +
+                '<td>' + json.name + '</td>\n' +
+                '<td>' + json.surname + '</td>\n' +
+                '<td>' + json.age + '</td>\n' +
+                '<td>' + json.username + '</td>\n' +
+                '<td>' + json.roles.map(r => r.name.replace('ROLE_', '')).join(', ') + '</td>\n' +
+                '<td>' + '<button class="btn btn-info btn-md" type="button" data-toggle="modal" data-target="#UserEditModal" onclick="openModalEdit('
+                + json.id + ');">Edit</button></td>\n' +
+
+                '<td>' + '<button class="btn btn-danger btn-md" type="button"  data-toggle="modal" data-target="#UserShowModal" onclick="openModalDelete(' +
+                json.id + ');">Delete</button></td>\n' + '</tr>';
+
+            $("#close").click();
+            $('#PersonsTable').append(html);
         });
+
+
+
+
 }
 
 
@@ -219,15 +249,6 @@ async function editPerson(){
     console.log(person_edit_result.id);
     let param = '#' + person_edit_result.id;
     $(param).remove();
-
-
-
-
-
-
-
-
-
 
 
     /*
