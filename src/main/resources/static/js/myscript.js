@@ -77,11 +77,8 @@ async function editPerson(event){
     })
         .then(response => response.json())
         .then(json => {
-            console.log('PUT: Получен ответ '); //тут в консоле покажет, что принят объект
-            console.log(json);
 
             let param = '#' + json.id;
-            console.log(param);
             $(param).remove();
 
             let html ='';
@@ -178,38 +175,6 @@ async function addNewPerson(event){
     getAllUsers();
 
 }
-
-// заполнение таблицы вошедшего пользователя
-
-// async function PersonTable(){
-//     let username = document.getElementById('username_in').innerHTML;
-//     console.log("username:");
-//     console.log(username);
-//     let url = "/api/persons/info";
-//     let response = await fetch(url,{
-//         method: "POST",
-//             headers: {
-//             'Accept': 'application/json',
-//                 'Content-Type': 'application/json;charset=UTF-8'
-//         },
-//         body: JSON.stringify({
-//             'username': username,
-//         })
-//     });
-//     let pJson = await response.json();
-//     console.log("Получен ответ по /api/persons/info");
-//     console.log(pJson);
-//     let html ='';
-//      html = '<td>'+pJson.id+ '</td>' +
-//     '<td>'+ pJson.name+ '</td>' +
-//     '<td>'+ pJson.surname+ '</td>' +
-//     '<td>'+ pJson.age+ '</td>' +
-//     '<td>'+ pJson.username+ '</td>' +
-//     '<td>'+ pJson.roles.map(r => r.name.replace('ROLE_', '')).join(', ')+ '</td>';
-//     document.getElementById("UserInfo").innerHTML = html;
-// }
-// PersonTable()
-
 
 // Создание массива ролей
 

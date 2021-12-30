@@ -43,7 +43,6 @@ public class MyRESTController {
         try {
              person = personServise.select(id);
         } catch (Exception e) {
-            System.out.println("Тута ексепшен при id = " + id);
            throw new NoSuchPersonException("No person whis id = " + id + " in DataBase");
         }
 
@@ -75,8 +74,5 @@ public class MyRESTController {
         personServise.delete((long) id);
         return "Person with " +  id + " removed";
     }
-//    @PostMapping("/persons/info")
-//    public Person personInfo(@RequestBody String username){
-//        return personServise.findByUserName(username);
-//    }
+
 }
