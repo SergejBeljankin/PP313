@@ -18,7 +18,7 @@
     <div class="row text-white bg-dark" >
         <div class="col-auto mr-auto">
             <h2 class="pt-2">
-                <span th:text = "${personAuthetication.getUsername()}"/> <small>with roles: <span th:text = "${personAuthetication.getRolesToString()}"/></small>
+                <span id="username_in" th:text = "${personAuthetication.getUsername()}"/> <small>with roles: <span th:text = "${personAuthetication.getRolesToString()}"/></small>
             </h2>
         </div>
         <div class="col-auto mt-3">
@@ -120,6 +120,7 @@
                         <!-- // Закладка New user -->
                     </div>
                 </div>
+                <!-- ТАБ UserInfo -->
                 <div class="tab-pane fade" id="user-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <div class="row p-2">
                         <h1>User information-page</h1>
@@ -141,13 +142,20 @@
                                 <th scope="col">Role</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="UserInfo">
                             <tr>
+                                <td th:text = "${personAuthetication.getId()}" />
+                                <td th:text = "${personAuthetication.getName()}" />
+                                <td  th:text = "${personAuthetication.getSurname()}" />
+                                <td th:text = "${personAuthetication.getAge()}" />
+                                <td th:text = "${personAuthetication.getUsername()}" />
+                                <td th:text = "${personAuthetication.getRolesToString()}" />
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <!--// ТАБ UserInfo -->
             </div>
         </div>
     </div>
