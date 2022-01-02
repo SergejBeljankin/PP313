@@ -2,32 +2,24 @@ package com.example.springcrud.controllers;
 
 
 import com.example.springcrud.entities.Person;
-import com.example.springcrud.entities.Role;
-import com.example.springcrud.services.UserDetailsServiceIpml;
-import com.example.springcrud.services.PersonServiseInterface;
+import com.example.springcrud.services.PersonServise;
 import com.example.springcrud.services.RoleServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.HashSet;
-import java.util.Set;
-
 @Controller
 public class SelectAll {
-    private final PersonServiseInterface personServiseInterface;
+    private final PersonServise personServise;
     private final RoleServise roleServise;
 
     @Autowired
     public SelectAll(RoleServise roleServise,
-                     PersonServiseInterface personServiseInterface) {
-        this.personServiseInterface = personServiseInterface;
+                     PersonServise personServise) {
+        this.personServise = personServise;
         this.roleServise = roleServise;
     }
 

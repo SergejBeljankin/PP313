@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class PersonServiseImpl implements PersonServiseInterface{
+public class PersonServiseImpl implements PersonServise {
 
     private PersonDAO personDAO;
 

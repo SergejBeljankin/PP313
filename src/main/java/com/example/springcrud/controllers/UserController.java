@@ -1,9 +1,7 @@
 package com.example.springcrud.controllers;
 
 import com.example.springcrud.entities.Person;
-import com.example.springcrud.services.UserDetailsServiceIpml;
-import com.example.springcrud.services.PersonServiseInterface;
-import com.example.springcrud.services.RoleServise;
+import com.example.springcrud.services.PersonServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
-    private final PersonServiseInterface personServiseInterface;
+    private final PersonServise personServise;
 
 
     @Autowired
-    public UserController(PersonServiseInterface personServiseInterface) {
-        this.personServiseInterface = personServiseInterface;
+    public UserController(PersonServise personServise) {
+        this.personServise = personServise;
 
     }
 
     @GetMapping("/{id}")
     public String userPage(Model model, @PathVariable("id") Long id){
-        Person person = personServiseInterface.select(id);
-        model.addAttribute("user", personServiseInterface.select(id));
+        Person person = personServise.select(id);
+        model.addAttribute("user", personServise.select(id));
         return "/user";
     }
 }

@@ -5,7 +5,7 @@ import com.example.springcrud.entities.Person;
 
 import java.util.List;
 
-public interface PersonServiseInterface {
+public interface PersonServise {
     List<Person> getAll();
     Person select(Long id);
     void save(Person person);

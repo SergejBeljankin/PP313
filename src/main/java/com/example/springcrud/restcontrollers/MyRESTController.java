@@ -1,32 +1,26 @@
 package com.example.springcrud.restcontrollers;
 
 import com.example.springcrud.entities.Person;
-import com.example.springcrud.entities.Role;
 import com.example.springcrud.exepion_handling.NoSuchPersonException;
 import com.example.springcrud.exepion_handling.PersonIncorrectDate;
-import com.example.springcrud.services.PersonServiseInterface;
+import com.example.springcrud.services.PersonServise;
 import com.example.springcrud.services.RoleServise;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.security.Principal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
 public class MyRESTController {
 
     @Autowired
-    private PersonServiseInterface personServise;
+    private PersonServise personServise;
 
     @Autowired
     private RoleServise roleServise;
@@ -73,6 +67,16 @@ public class MyRESTController {
     public String deletePerson(@PathVariable int id){
         personServise.delete((long) id);
         return "Person with " +  id + " removed";
+    }
+
+    @GetMapping("/info")
+//    public ResponseEntity<Person> showUserInfo(@AuthenticationPrincipal Person person) throws NotFoundException {
+    public Person showUserInfo(@AuthenticationPrincipal Person person) {
+//        System.out.println(person.getUsername());
+        Person personByUsername = personServise.findByUserName(person.getUsername());
+        System.out.println(personByUsername);
+//        return ResponseEntity.ok(personByUsername);
+        return personByUsername;
     }
 
 }

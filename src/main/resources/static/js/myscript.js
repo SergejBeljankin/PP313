@@ -175,6 +175,21 @@ async function addNewPerson(event){
     getAllUsers();
 
 }
+// PersonInfo
+async function PersonInfo(){
+    let usermaneHTML = $('#username_in')[0].innerHTML;
+    console.log(usermaneHTML);
+
+    let url_info = '/api/info';
+    let personId = await fetch(url_info);
+    let persIdJS = await personId.json();
+
+    console.log(persIdJS);
+
+
+}
+
+
 
 // Создание массива ролей
 

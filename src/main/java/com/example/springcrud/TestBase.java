@@ -2,7 +2,7 @@ package com.example.springcrud;
 
 import com.example.springcrud.entities.Person;
 import com.example.springcrud.entities.Role;
-import com.example.springcrud.services.PersonServiseInterface;
+import com.example.springcrud.services.PersonServise;
 import com.example.springcrud.services.RoleServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,11 +14,11 @@ import java.util.Set;
 
 @Component
 public class TestBase {
-    private final PersonServiseInterface personServise;
+    private final PersonServise personServise;
     private final RoleServise roleServise;
 
     @Autowired
-    public TestBase(PersonServiseInterface personServise, RoleServise roleServise){
+    public TestBase(PersonServise personServise, RoleServise roleServise){
         this.personServise = personServise;
         this.roleServise = roleServise;
 
