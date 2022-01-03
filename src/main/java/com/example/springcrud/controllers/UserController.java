@@ -14,19 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
-    private final PersonServise personServise;
-
-
-    @Autowired
-    public UserController(PersonServise personServise) {
-        this.personServise = personServise;
-
-    }
-
-    @GetMapping("/{id}")
-    public String userPage(Model model, @PathVariable("id") Long id){
-        Person person = personServise.select(id);
-        model.addAttribute("user", personServise.select(id));
+    @GetMapping("/")
+    public String userPage(){
         return "/user";
     }
 }

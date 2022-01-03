@@ -19,7 +19,7 @@ public class PersonDAOImpl implements PersonDAO {
 
     @Override
     public List<Person> getAll(){
-        return entityManager.createQuery("from Person", Person.class).getResultList();
+        return entityManager.createQuery("select person from Person as person", Person.class).getResultList();
     }
 
     @Override

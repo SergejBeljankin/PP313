@@ -70,7 +70,6 @@ public class MyRESTController {
     }
 
     @GetMapping("/info")
-
     public Person showUserInfo(@AuthenticationPrincipal Person person) {
         Person personByUsername = personServise.findByUserName(person.getUsername());
         System.out.println(personByUsername);

@@ -33,14 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.formLogin() // форма логирования по умолчанию
-                .successHandler(loginSuccessHandler) // раскидываем по страницам в зависимости от ролей
+                .successHandler(loginSuccessHandler)
                 .permitAll();
 
         http.logout()
                 .permitAll()
                 // URL логаута
                 .logoutUrl("/logout")
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 // указываем URL при удачном логауте
                 .logoutSuccessUrl("/login")
                 //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
@@ -55,7 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // защищенные URL
                 .antMatchers("/user/**").access("hasAnyRole('USER', 'MANAGER','ADMIN')")
                 .antMatchers("/select_all/**").access("hasAnyRole('ADMIN')")
+                .antMatchers("/api/info").access("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
                 .antMatchers("/api/**").access("hasAnyRole('ADMIN')")
+
                 .anyRequest().authenticated();
     }
 

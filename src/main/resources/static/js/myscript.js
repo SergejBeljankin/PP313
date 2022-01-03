@@ -178,7 +178,6 @@ async function addNewPerson(event){
 // PersonInfo
 async function PersonInfo(){
 
-
     let url_info = '/api/info';
     let personId = await fetch(url_info);
     let persIdJS = await personId.json();
