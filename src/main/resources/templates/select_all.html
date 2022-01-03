@@ -18,7 +18,7 @@
     <div class="row text-white bg-dark" >
         <div class="col-auto mr-auto">
             <h2 class="pt-2">
-                <span id="username_in" th:text = "${personAuthetication.getUsername()}"/> <small>with roles: <span th:text = "${personAuthetication.getRolesToString()}"/></small>
+                <small><span id="username_in"></span> with roles: <span id="role"></span></small>
             </h2>
         </div>
         <div class="col-auto mt-3">
@@ -143,14 +143,7 @@
                             </tr>
                             </thead>
                             <tbody id="UserInfo">
-                            <tr>
-                                <td th:text = "${personAuthetication.getId()}" />
-                                <td th:text = "${personAuthetication.getName()}" />
-                                <td  th:text = "${personAuthetication.getSurname()}" />
-                                <td th:text = "${personAuthetication.getAge()}" />
-                                <td th:text = "${personAuthetication.getUsername()}" />
-                                <td th:text = "${personAuthetication.getRolesToString()}" />
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>

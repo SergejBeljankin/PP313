@@ -70,12 +70,10 @@ public class MyRESTController {
     }
 
     @GetMapping("/info")
-//    public ResponseEntity<Person> showUserInfo(@AuthenticationPrincipal Person person) throws NotFoundException {
+
     public Person showUserInfo(@AuthenticationPrincipal Person person) {
-//        System.out.println(person.getUsername());
         Person personByUsername = personServise.findByUserName(person.getUsername());
         System.out.println(personByUsername);
-//        return ResponseEntity.ok(personByUsername);
         return personByUsername;
     }
 

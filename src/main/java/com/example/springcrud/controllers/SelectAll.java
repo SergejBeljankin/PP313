@@ -13,22 +13,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class SelectAll {
-    private final PersonServise personServise;
     private final RoleServise roleServise;
 
     @Autowired
-    public SelectAll(RoleServise roleServise,
-                     PersonServise personServise) {
-        this.personServise = personServise;
+    public SelectAll(RoleServise roleServise) {
         this.roleServise = roleServise;
     }
 
     @GetMapping("/select_all")
     public String selectAll(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Person personAuthetication = (Person) auth.getPrincipal();
         model.addAttribute("roles", roleServise.getAllRoles());
-        model.addAttribute("personAuthetication", personAuthetication);
         return "/select_all";
     }
 
